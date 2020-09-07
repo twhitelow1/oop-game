@@ -94,6 +94,14 @@ class Game {
       overlayElement.classList.remove('start');
       overlayElement.classList.add('lose');
     }
-
   }
+
+  /**
+   * Handles onscreen keyboard button clicks
+   * @param (HTMLButtonElement) button - The clicked button element
+   */
+  handleInteraction(button) {
+    console.log(button)
+  }
+
 }
