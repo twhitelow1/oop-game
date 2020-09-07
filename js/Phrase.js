@@ -6,14 +6,21 @@ class Phrase {
   constructor(phrase) {
     this.phrase = phrase;
   }
-  addPhraseToDisplay = () => {
+  addPhraseToDisplay() {
     const characters = this.phrase.split('');
-    phraseDiv = document.querySelector('#phrase ul')
+    const phraseDiv = document.querySelector('#phrase ul')
+    characters.forEach(character => {
+      const letter = document.createElement('li');
+      if (character == ' ') {
+        letter.setAttribute("class", "space");
+      } else {
+        letter.setAttribute("class", ` hide letter $ {character}`);
+      }
+      letter.innerHTML = character;
+      phraseDiv.appendChild(letter);
+    });
     console.log(phraseDiv);
-    // characters.each(character => {
-
-
-    // })
+    return characters
   }
   checkLetter = () => {
 
@@ -25,3 +32,4 @@ class Phrase {
 }
 
 const phrase = new Phrase("This is the phrase!");
+console.log(phrase)
