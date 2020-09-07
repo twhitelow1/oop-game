@@ -3,7 +3,7 @@
  * app.js */
 
 
-const button = document.getElementById('btn_reset');
+const button = document.getElementById('btn__reset');
 button.addEventListener('click', event => {
   const game = new Game();
   game.createPhrases();
