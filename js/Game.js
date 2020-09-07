@@ -13,16 +13,15 @@ class Game {
    * @return {array} An array of phrases that could be used in the game
    */
   createPhrases() {
-    const allPhrases = []
-    allPhrases.push(new Phrase("Part of the journey is the end"));
-    allPhrases.push(new Phrase("I would rather be a good man than a great king"));
-    allPhrases.push(new Phrase("Teach Me"));
-    allPhrases.push(new Phrase("Hulk smash"));
-    allPhrases.push(new Phrase("I can do this all day"));
+    this.phrases.push(new Phrase("Part of the journey is the end"));
+    this.phrases.push(new Phrase("I would rather be a good man than a great king"));
+    this.phrases.push(new Phrase("Teach Me"));
+    this.phrases.push(new Phrase("Hulk smash"));
+    this.phrases.push(new Phrase("I can do this all day"));
+    return this.phrases
+  }
 
-    return allPhrases
+  getRandomPhrase() {
+    return this.phrases[Math.floor(Math.random() * this.phrases.length)].phrase
   }
 }
-
-const game = new Game();
-gamePhrases = game.createPhrases();
