@@ -37,12 +37,19 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    gameLetterElements.forEach(letter => {
-      if (letter.classList.contains('hide')) {
-        return false
+    const gameLetterElements = document.querySelectorAll('#phrase li');
+    if (this.missed >= 5) {
+      return false
+    } else {
+      for (let i = 0; i <= gameLetterElements.length; i++) {
+        let currentLetter = gameLetterElements[i];
+        if (currentLetter.classList.contains('hide')) {
+          return false
+        } else {
+          return true
+        }
       }
-    })
-    return true
+    }
   }
 
   /**
@@ -51,14 +58,42 @@ class Game {
    * Checks if player has remaining lives and ends game if player is out
    */
   removeLife() {
-
+    const scoreboardPics = document.querySelectorAll('#scoreboard li');
+    if (this.missed >= 5) {
+      return this.gameOver(this.checkForWin())
+    }
+    for (let i = 0; i < scoreboardPics.length; i++) {
+      let item = scoreboardPics[i]
+      const itemSRC = item.firstChild.getAttribute("src");
+      if (itemSRC === "images/liveHeart.png") {
+        item.firstChild.setAttribute("src", "images/lostHeart.png");
+        this.missed++
+        break
+      }
+    }
+    if (this.checkForWin) {
+      this.gameOver(true)
+    }
   }
+
 
   /**
    * Displays game over message
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
+    const overlayElement = document.querySelector('#overlay');
+    const overlayH1Element = document.querySelector('#overlay h1');
+    overlayElement.style.display = 'block';
+    if (gameWon) {
+      overlayH1Element.innerText = 'You win!';
+      overlayElement.classList.remove('start');
+      overlayElement.classList.add('win');
+    } else {
+      overlayH1Element.innerText = "You Lose!";
+      overlayElement.classList.remove('start');
+      overlayElement.classList.add('lose');
+    }
 
   }
 }
