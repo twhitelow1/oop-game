@@ -4,5 +4,3 @@
 
 const game = new Game();
 gamePhrases = game.createPhrases();
-
-game.getRandomPhrase().addPhraseToDisplay();
