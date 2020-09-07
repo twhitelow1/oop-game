@@ -38,9 +38,10 @@ class Phrase {
    * @param (string) letter - Letter for display
    */
   showMatchedLetter(inputLetter) {
-    const gameLetterElements = document.querySelectorAll('#phrase li')
+    const gameLetterElements = document.querySelectorAll('#phrase li');
     gameLetterElements.forEach(current => {
-      if (current.innerHTML === inputLetter) {
+
+      if (current.innerText == inputLetter) {
         current.classList.remove("hide");
         current.classList.add("show");
       }
