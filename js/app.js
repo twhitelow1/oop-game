@@ -5,4 +5,4 @@
 const game = new Game();
 gamePhrases = game.createPhrases();
 
-gamePhrases[0].addPhraseToDisplay();
+game.getRandomPhrase().addPhraseToDisplay();

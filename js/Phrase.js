@@ -6,6 +6,9 @@ class Phrase {
   constructor(phrase) {
     this.phrase = phrase;
   }
+  /**
+   * Display phrase on game board
+   */
   addPhraseToDisplay() {
     const characters = this.phrase.split('');
     const phraseDiv = document.querySelector('#phrase ul')
@@ -19,7 +22,6 @@ class Phrase {
       letter.innerHTML = character;
       phraseDiv.appendChild(letter);
     });
-    console.log(phraseDiv);
     return characters
   }
   checkLetter() {
