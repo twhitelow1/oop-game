@@ -9,4 +9,5 @@ button.addEventListener('click', event => {
   game.createPhrases();
   game.startGame();
   console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);
+  console.log(game.activePhrase.checkLetter('a'))
 })

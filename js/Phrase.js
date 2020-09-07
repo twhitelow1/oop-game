@@ -30,10 +30,20 @@ class Phrase {
    * @param (string) letter - Letter to check
    */
   checkLetter(letter) {
-    this.phrase.includes(letter);
+    return this.phrase.includes(letter);
   }
 
-  showMatchedLetter() {
-
+  /**
+   * Displays passed letter on screen after a match is found
+   * @param (string) letter - Letter for display
+   */
+  showMatchedLetter(inputLetter) {
+    const gameLetterElements = document.querySelectorAll('#phrase li')
+    gameLetterElements.forEach(current => {
+      if (current.innerHTML === inputLetter) {
+        current.classList.remove("hide");
+        current.classList.add("show");
+      }
+    })
   }
 }
