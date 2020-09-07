@@ -60,6 +60,7 @@ class Game {
   removeLife() {
     const scoreboardPics = document.querySelectorAll('#scoreboard li');
     if (this.missed >= 5) {
+      console.log("its greater than 5")
       return this.gameOver(this.checkForWin())
     }
     for (let i = 0; i < scoreboardPics.length; i++) {
@@ -71,9 +72,7 @@ class Game {
         break
       }
     }
-    if (this.checkForWin) {
-      this.gameOver(true)
-    }
+
   }
 
 
@@ -108,13 +107,12 @@ class Game {
       this.activePhrase.showMatchedLetter(currentKey)
       button.disabled = true;
       button.classList.add('chosen')
-      if (this.checkForWin()) {
-        this.gameOver(true)
-      }
     } else {
       button.disabled = true;
       button.classList.add('wrong');
+      this.removeLife()
     }
+    if (this.checkForWin()) {}
   }
 
 }
