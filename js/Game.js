@@ -14,18 +14,41 @@ class Game {
    * @return {array} An array of phrases that could be used in the game
    */
   createPhrases() {
-    this.phrases.push(new Phrase("Part of the journey is the end"));
+    this.phrases.push(new Phrase("phrase"));
     this.phrases.push(
-      new Phrase("I would rather be a good man than a great king")
+      new Phrase("I need")
     );
     this.phrases.push(new Phrase("Teach Me"));
     this.phrases.push(new Phrase("Hulk smash"));
-    this.phrases.push(new Phrase("I can do this all day"));
+    this.phrases.push(new Phrase("test"));
     return this.phrases;
   }
 
-  checkPhrase() {
+  foundPhrase() {
+    const gameLetterElements = document.querySelectorAll("#phrase li");
+    for (let i = 0; i < gameLetterElements.length; i++) {
+      let currentLetter = gameLetterElements[i];
+      if (currentLetter.classList.contains("hide")) {
+        return false;
+        break
+      } else {
+        return true;
+      }
+    }
+  }
 
+  /**
+   * Select the hearts and reset them all to alive
+   */
+  resetHearts() {
+    const scoreboardPics = document.querySelectorAll("#scoreboard li");
+    for (let i = 0; i < scoreboardPics.length; i++) {
+      scoreboardPics[i].firstChild.setAttribute("src", "images/liveHeart.png");
+    }
+  }
+
+  noMoreLives() {
+    return (this.missed >= 5);
   }
 
   getRandomPhrase() {
@@ -40,18 +63,37 @@ class Game {
     this.activePhrase.addPhraseToDisplay();
   }
   /**
+   *  Checks if two conditions that end the game are true and if they are then returns true or false
+   *  @return {boolean} True if no more lives or if the phrase has been identified
+   */
+  isGameOver() {
+    return (this.noMoreLives() || this.foundPhrase())
+  }
+  /**
    * Checks for winning move
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
     const gameLetterElements = document.querySelectorAll("#phrase li");
-    const noMoreLives = this.missed > 5;
-    let foundPhrase = false
-
-    console.log(`foundPhrase = ${foundPhrase}`);
-    console.log(`noMoreLives = ${noMoreLives}`);
-    // console.log(`foundAllLetters = ${foundAllLetters}`);
+    if (this.noMoreLives() || this.foundPhrase()) {
+      return true
+    } else {
+      return false
+    }
   }
+
+  /**
+   *   This takes in the amount of lives and then updates the hearts to reflect it
+   */
+  updateLives() {
+    const scoreboardPics = document.querySelectorAll("#scoreboard li");
+    this.resetHearts();
+    for (let i = 0; i < this.missed; i++) {
+      let item = scoreboardPics[i];
+      item.firstChild.setAttribute("src", "images/lostHeart.png");
+    }
+  }
+
 
   /**
    * Increases the value of the missed property
@@ -60,20 +102,21 @@ class Game {
    */
   removeLife() {
     const scoreboardPics = document.querySelectorAll("#scoreboard li");
-    if (this.missed > 4) {
-      console.log("its greater than 5");
-      return this.gameOver(this.checkForWin());
-    }
+    // Remove life from scoreboard
+    // for (let i = 0; i < scoreboardPics.length; i++) {
+    //   let item = scoreboardPics[i];
+    //   const itemSRC = item.firstChild.getAttribute("src");
+    //   if (itemSRC === "images/liveHeart.png") {
+    //     item.firstChild.setAttribute("src", "images/lostHeart.png");
+    //     this.missed++;
+    //     break;
+    //   }
+    // }
+    this.missed++;
+    this.updateLives();
+    // If out of lives then end game
+    console.log(this.missed)
 
-    for (let i = 0; i < scoreboardPics.length; i++) {
-      let item = scoreboardPics[i];
-      const itemSRC = item.firstChild.getAttribute("src");
-      if (itemSRC === "images/liveHeart.png") {
-        item.firstChild.setAttribute("src", "images/lostHeart.png");
-        this.missed++;
-        break;
-      }
-    }
   }
 
   /**
@@ -114,7 +157,7 @@ class Game {
       key.classList.add("key");
     })
     // Set  missed count to zero
-    this.missed = 0;
+    //this.missed = 0;
 
   }
 
@@ -123,9 +166,7 @@ class Game {
    * @param (HTMLButtonElement) button - The clicked button element
    */
   handleInteraction(button) {
-    console.log(button);
     let currentKey = button.innerText;
-    console.log(currentKey);
     if (this.activePhrase.checkLetter(currentKey)) {
       this.activePhrase.showMatchedLetter(currentKey);
       button.disabled = true;
@@ -135,6 +176,5 @@ class Game {
       button.classList.add("wrong");
       this.removeLife();
     }
-    if (this.checkForWin()) {}
   }
 }
