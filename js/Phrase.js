@@ -41,7 +41,7 @@ class Phrase {
     const gameLetterElements = document.querySelectorAll('#phrase li');
     gameLetterElements.forEach(current => {
 
-      if (current.innerText == inputLetter) {
+      if (current.innerText.toUpperCase() === inputLetter.toUpperCase()) {
         current.classList.remove("hide");
         current.classList.add("show");
       }
