@@ -14,27 +14,27 @@ class Game {
    * @return {array} An array of phrases that could be used in the game
    */
   createPhrases() {
-    this.phrases.push(new Phrase("phrase"));
-    this.phrases.push(
-      new Phrase("I need")
-    );
+    this.phrases.push(new Phrase("Phrase"));
+    this.phrases.push(new Phrase("I need"));
     this.phrases.push(new Phrase("Teach Me"));
     this.phrases.push(new Phrase("Hulk smash"));
-    this.phrases.push(new Phrase("test"));
+    this.phrases.push(new Phrase("Test"));
     return this.phrases;
   }
 
+  /**
+   *  Check to see if the phrase hase been gueesed by going through each letter in phrase
+   * @return {boolean} fales if current letter has the 'hide' class and true if no matches found
+   */
   foundPhrase() {
     const gameLetterElements = document.querySelectorAll("#phrase li");
     for (let i = 0; i < gameLetterElements.length; i++) {
       let currentLetter = gameLetterElements[i];
       if (currentLetter.classList.contains("hide")) {
         return false;
-        break
-      } else {
-        return true;
       }
     }
+    return true;
   }
 
   /**
@@ -46,11 +46,17 @@ class Game {
       scoreboardPics[i].firstChild.setAttribute("src", "images/liveHeart.png");
     }
   }
-
+  /**
+   *  Utility class to check on how many lives left
+   *  @return true is this.missed is >= 5 false if this.missed < 5
+   */
   noMoreLives() {
     return (this.missed >= 5);
   }
-
+  /**
+   *  Utility class to grab a random phrase. generate a random number inside of brackets to access phrases array
+   *  @return {string} random phrase string 
+   */
   getRandomPhrase() {
     return this.phrases[Math.floor(Math.random() * this.phrases.length)];
   }
@@ -74,8 +80,7 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    const gameLetterElements = document.querySelectorAll("#phrase li");
-    if (this.noMoreLives() || this.foundPhrase()) {
+    if (!this.noMoreLives() && this.foundPhrase()) {
       return true
     } else {
       return false
@@ -101,22 +106,11 @@ class Game {
    * Checks if player has remaining lives and ends game if player is out
    */
   removeLife() {
-    const scoreboardPics = document.querySelectorAll("#scoreboard li");
-    // Remove life from scoreboard
-    // for (let i = 0; i < scoreboardPics.length; i++) {
-    //   let item = scoreboardPics[i];
-    //   const itemSRC = item.firstChild.getAttribute("src");
-    //   if (itemSRC === "images/liveHeart.png") {
-    //     item.firstChild.setAttribute("src", "images/lostHeart.png");
-    //     this.missed++;
-    //     break;
-    //   }
-    // }
     this.missed++;
     this.updateLives();
-    // If out of lives then end game
-    console.log(this.missed)
-
+    if (this.isGameOver()) {
+      this.gameOver(this.checkForWin())
+    };
   }
 
   /**
@@ -124,7 +118,6 @@ class Game {
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
-    const phraseDiv = document.querySelector("#phrase ul");
     const gameLetterElements = document.querySelectorAll('#phrase li');
     const overlayElement = document.querySelector("#overlay");
     const overlayH1Element = document.querySelector("#overlay h1");
@@ -157,7 +150,7 @@ class Game {
       key.classList.add("key");
     })
     // Set  missed count to zero
-    //this.missed = 0;
+    this.missed = 0;
 
   }
 
@@ -175,6 +168,9 @@ class Game {
       button.disabled = true;
       button.classList.add("wrong");
       this.removeLife();
+    }
+    if (this.isGameOver()) {
+      this.gameOver(this.checkForWin());
     }
   }
 }

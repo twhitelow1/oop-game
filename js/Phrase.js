@@ -30,7 +30,7 @@ class Phrase {
    * @param (string) letter - Letter to check
    */
   checkLetter(letter) {
-    return this.phrase.includes(letter);
+    return this.phrase.toLowerCase().includes(letter);
   }
 
   /**
@@ -39,9 +39,11 @@ class Phrase {
    */
   showMatchedLetter(inputLetter) {
     const gameLetterElements = document.querySelectorAll('#phrase li');
+    console.log(gameLetterElements)
     gameLetterElements.forEach(current => {
-
-      if (current.innerText.toUpperCase() === inputLetter.toUpperCase()) {
+      console.log(`Current phrase letter: ${current.innerText}`);
+      console.log(`keyed letter: ${inputLetter}`);
+      if (current.innerText.toLowerCase() == inputLetter) {
         current.classList.remove("hide");
         current.classList.add("show");
       }
