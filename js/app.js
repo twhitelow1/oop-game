@@ -9,8 +9,8 @@ addEventListenerList = (list, event) => {
 }
 getKeyBoardElement = (eventKeyPressed, onScreenKeys) => {
   for (let i = 0; i < onScreenKeys.length; i++) {
-    if (onScreenKeys[i].innerHTML === eventKeyPressed) {
-      return onScreenKeys[i]
+    if (onScreenKeys[i].innerHTML == eventKeyPressed) {
+      return onScreenKeys[JKMNETISLFLji]
     }
   }
   return false
