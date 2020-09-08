@@ -65,6 +65,10 @@ class Game {
    */
   startGame() {
     document.querySelector("#overlay").style.display = "none";
+    const overlayElement = document.querySelector("#overlay");
+    const overlayH1Element = document.querySelector("#overlay h1");
+    overlayH1Element.innerText = "";
+    overlayElement.className = "start";
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
   }
@@ -109,6 +113,7 @@ class Game {
     this.missed++;
     this.updateLives();
     if (this.isGameOver()) {
+      console.log(`Inside removeLife ${this.checkForWin()}`);
       this.gameOver(this.checkForWin())
     };
   }
@@ -118,18 +123,17 @@ class Game {
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
+    console.log(gameWon)
     const gameLetterElements = document.querySelectorAll('#phrase li');
     const overlayElement = document.querySelector("#overlay");
     const overlayH1Element = document.querySelector("#overlay h1");
     overlayElement.style.display = "block";
     if (gameWon) {
       overlayH1Element.innerText = "You win!";
-      overlayElement.classList.remove("start");
-      overlayElement.classList.add("win");
+      overlayElement.className = "win";
     } else {
       overlayH1Element.innerText = "You Lose!";
-      overlayElement.classList.remove("start");
-      overlayElement.classList.add("lose");
+      overlayElement.className = "lose";
     }
 
     // Remove the previous phrase
@@ -164,13 +168,14 @@ class Game {
       this.activePhrase.showMatchedLetter(currentKey);
       button.disabled = true;
       button.classList.add("chosen");
+      if (this.isGameOver()) {
+        this.gameOver(this.checkForWin)
+      }
     } else {
       button.disabled = true;
       button.classList.add("wrong");
       this.removeLife();
     }
-    if (this.isGameOver()) {
-      this.gameOver(this.checkForWin());
-    }
+
   }
 }
