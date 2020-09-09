@@ -14,11 +14,11 @@ class Game {
    * @return {array} An array of phrases that could be used in the game
    */
   createPhrases() {
-    this.phrases.push(new Phrase("Phrase"));
-    this.phrases.push(new Phrase("I need"));
-    this.phrases.push(new Phrase("Teach Me"));
-    this.phrases.push(new Phrase("Hulk smash"));
-    this.phrases.push(new Phrase("Test"));
+    this.phrases.push(new Phrase("Help me obi wan kenobi youre my only hope"));
+    this.phrases.push(new Phrase("I find your lack of faith disturbing"));
+    this.phrases.push(new Phrase("The force will be with you always"));
+    this.phrases.push(new Phrase("Do or do not there is no try"));
+    this.phrases.push(new Phrase("No I am your father"));
     return this.phrases;
   }
 
