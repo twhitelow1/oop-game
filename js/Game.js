@@ -161,6 +161,14 @@ class Game {
   /**
    * Handles onscreen keyboard button clicks
    * @param (HTMLButtonElement) button - The clicked button element
+   * if the key pressed matches a letter in the phrase then disable that button
+   * and style the onscreen button as a chosen letter
+   * then check if the gatme is over and if it is check for winning state and 
+   * end game
+   * 
+   * else (the button chosed doesnt match a letter in the phrase)
+   * set button to disabled and style it for a letter that was the wrong guess
+   * then take away a life
    */
   handleInteraction(button) {
     let currentKey = button.innerText;

@@ -184,7 +184,7 @@ button {
 
 .start {
   background: #3a3f58 url('file:///Users/toddsmac/Projects/oop-game/images/starwarsbg.jpg') no-repeat fixed;
-  background-size: cover;
+background-size: cover;
 }
 
 .start a {
